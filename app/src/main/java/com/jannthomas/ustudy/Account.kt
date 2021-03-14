@@ -70,7 +70,7 @@ object Account {
         // TODO: Initialize another way?
         university = Account.context.evaluateScript("new HSFulda();").toObject()
 
-        universityObject = Json { ignoreUnknownKeys = true } .decodeFromString<University>(getString("Payloads/$identifier/main.json"))
+        universityObject = Json { ignoreUnknownKeys = true } .decodeFromString<University>(getString("Core/Payloads/$identifier/main.json"))
     }
 
     private fun loadFetch() {
@@ -211,7 +211,7 @@ object Account {
     }
 
     fun import(file: String): JSValue {
-        return load("Payloads/$identifier/$file")
+        return load("Core/Payloads/$identifier/$file")
     }
 
     fun load(file: String): JSValue {

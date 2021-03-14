@@ -1,0 +1,3 @@
+[submodule "app/src/main/assets/Core"]
+	path = app/src/main/assets/Core
+	url = git@github.com:JannThomas/UStudy.git
