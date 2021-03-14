@@ -1,0 +1,983 @@
+<div class="container-fluid p-xl-0 mb-2">
+    <div class="row mt-1">
+        <div class="col-12 col-md-4 mt-2">
+            <span class="bold">Dienstag, 04.02.2020</span>
+        </div>
+        <div class="col-12 col-md-5 mt-2">
+            <a href="https://www.maxmanager.de/daten-extern/sw-giessen/pdf/wochenplaene/mensa-hochschule-fulda/aktuelle_woche.pdf?ts=1580741306" download="aktuelle_woche" target="_blank">
+                <i class="fas fa-download" style="color:#6f6f6f"></i>
+            </a>
+            Wochenplan herunterladen
+        </div>
+        <div
+            id="wowe"
+            class="col-12 col-md-3 mt-2 ptr toggleThisNextWeek"
+            onclick="loadSpeiseplanWochentag('34','2020-02-11', 'next', '2')"
+        >
+            <i class="fas fa-step-forward"></i>
+            Nächste Woche
+            <div id="hiddenDayNumber" class="hide">2</div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 ptr toggleAllergenFilterPanel" onclick="toggleAllergenFilter()">
+            <!--i class="fas fa-filter"></i-->
+            <i id="toggleAllergenFilterPanelCaret" class="fas fa-caret-square-right ptr"></i>
+            Filter Zusatzstoffe / Allergene
+        </div>
+    </div>
+    <div class="row filterKennzHiddenInfo mt-2" style="font-size:12px">
+        <div id="ausgeschlosseneKennzeichnungen" class="col-12" style="font-weight: bold;line-height:17px;">&nbsp;</div>
+        <div class="col-12 ptr" onclick="clearSplFilter()">
+            <i class="fas fa-trash"></i> &nbsp;Filter leeren
+        </div>
+    </div>
+</div>
+<div id="splFilterPanel" class="hide filterPanel">
+    <div class="container" style="font-size:11px; font-weight:bold">
+        <div class="row pt-1">
+            <div class="col-12 col-md-10" onclick="clearSplFilter()">
+            Essen ausschließen, welche markierte Zusatzstoffe / Allergene beinhalten.
+        </div>
+            <div class="col-12 col-md-2 ptr clearFilter" onclick="clearSplFilter()">
+                <i class="fas fa-trash"></i>
+            Filter leeren
+            </div>
+        </div>
+    </div>
+    <div class="container" style="font-size:11px">
+        <span style="font-weight: bold">Zusatzstoffe</span>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-1" class="itemkennz" onclick="filterArtikel()"> (1) Farbstoff
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-2" class="itemkennz" onclick="filterArtikel()"> (2) Konservierungsstoff
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-3" class="itemkennz" onclick="filterArtikel()"> (3) Antioxidationsmittel
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-4" class="itemkennz" onclick="filterArtikel()"> (4) Geschmacksverstärker
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-5" class="itemkennz" onclick="filterArtikel()"> (5) Geschwefelt
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-6" class="itemkennz" onclick="filterArtikel()"> (6) Geschwärzt
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-7" class="itemkennz" onclick="filterArtikel()"> (7) Gewachst
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-8" class="itemkennz" onclick="filterArtikel()"> (8) Phosphat
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-9" class="itemkennz" onclick="filterArtikel()"> (9) Süßungsmittel
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-10" class="itemkennz" onclick="filterArtikel()"> (10) Alkohol
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-11" class="itemkennz" onclick="filterArtikel()"> (11) Mit einer Zuckerart und Süßungsmittel
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-12" class="itemkennz" onclick="filterArtikel()"> (12) Phenylalaninquelle
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-13" class="itemkennz" onclick="filterArtikel()"> (13) Koffeinhaltig
+
+            </div>
+        </div>
+    </div>
+    <div class="container" style="font-size:11px">
+        <span style="font-weight: bold">Allergene</span>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30" class="itemkennz" onclick="filterArtikel()"> (30) Glutenhaltiges Getreide
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-31" class="itemkennz" onclick="filterArtikel()"> (31) Krebstiere
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-32" class="itemkennz" onclick="filterArtikel()"> (32) Eier
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-33" class="itemkennz" onclick="filterArtikel()"> (33) Fisch
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-34" class="itemkennz" onclick="filterArtikel()"> (34) Erdnüsse
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-35" class="itemkennz" onclick="filterArtikel()"> (35) Sojabohnen
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-36" class="itemkennz" onclick="filterArtikel()"> (36) Milch
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37" class="itemkennz" onclick="filterArtikel()"> (37) Schalenfrüchte
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-38" class="itemkennz" onclick="filterArtikel()"> (38) Sellerie
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-39" class="itemkennz" onclick="filterArtikel()"> (39) Senf
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-40" class="itemkennz" onclick="filterArtikel()"> (40) Sesam
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-41" class="itemkennz" onclick="filterArtikel()"> (41) Schwefeldioxid und Sulfide
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-42" class="itemkennz" onclick="filterArtikel()"> (42) Lupinen
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-43" class="itemkennz" onclick="filterArtikel()"> (43) Weichtiere
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30a" class="itemkennz" onclick="filterArtikel()"> (30a) Weizen
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30b" class="itemkennz" onclick="filterArtikel()"> (30b) Roggen
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30c" class="itemkennz" onclick="filterArtikel()"> (30c) Gerste
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30d" class="itemkennz" onclick="filterArtikel()"> (30d) Hafer
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30e" class="itemkennz" onclick="filterArtikel()"> (30e) Dinkel
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-30f" class="itemkennz" onclick="filterArtikel()"> (30f) Kamut
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37a" class="itemkennz" onclick="filterArtikel()"> (37a) Mandeln
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37b" class="itemkennz" onclick="filterArtikel()"> (37b) Haselnüsse
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37c" class="itemkennz" onclick="filterArtikel()"> (37c) Walnüsse
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37d" class="itemkennz" onclick="filterArtikel()"> (37d) Cashewkerne
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37e" class="itemkennz" onclick="filterArtikel()"> (37e) Pekannüsse
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37f" class="itemkennz" onclick="filterArtikel()"> (37f) Paranüsse
+
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37g" class="itemkennz" onclick="filterArtikel()"> (37g) Pistazien
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="stoff-37h" class="itemkennz" onclick="filterArtikel()"> (37h) Macadamia-/Queenslandnüsse
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Salate</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Salate</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,35,40,30a</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="assets/images/dummyessen.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/dummyessen.d5e2fd89db36eb8f6d501aa2fa1f2fc7.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="assets/images/dummyessen.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Asia Gurkensalat 
+                <sup style='font-size:11px'>(30,35,40,30a)</sup>
+            </span>
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 1,30
+        
+            <div></div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        
+    </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 1,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Fleischgericht</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Fleischgericht</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">1,3,5,9,11,13,39,41</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/593845c51_1.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/593845c51_1.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/593845c51_1.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Gegrillter  Hähnchenschenkel</span>
+            <br>mit Cola-BBQ-Dip 
+            <sup style='font-size:11px'>(1,3,5,9,11,13,39,41)</sup>  dazu Pommes frites
+            <sup style='font-size:11px'>(3)</sup>
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 2,90 | 4,90 | 5,40
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/G.png?v=1' class='splIconMeal' alt='Gegrillter  Hähnchenschenkel mit Cola-BBQ-Dip  dazu Pommes frites'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Gegrillter  Hähnchenschenkel mit Cola-BBQ-Dip  dazu Pommes frites'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Gegrillter  Hähnchenschenkel mit Cola-BBQ-Dip  dazu Pommes frites'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/G.png?v=1' class='splIconMeal' alt='Gegrillter  Hähnchenschenkel mit Cola-BBQ-Dip  dazu Pommes frites'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Gegrillter  Hähnchenschenkel mit Cola-BBQ-Dip  dazu Pommes frites'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Gegrillter  Hähnchenschenkel mit Cola-BBQ-Dip  dazu Pommes frites'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 2,90 | 4,90 | 5,40
+        </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">mensaVital</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">mensaVital</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,32,33,36,30a</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/2m2985928_img_4467.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/2m2985928_img_4467.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/2m2985928_img_4467.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Kabeljau auf Blattspinat 
+                <sup style='font-size:11px'>(30,32,33,36,30a)</sup>
+            </span>
+            <br>mit Tomatentagliatelle
+            <br>p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F
+    
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 3,80 | 5,80 | 6,30
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/MSC.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/MV.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/MSC.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/MV.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Kabeljau auf Blattspinat mit Tomatentagliatelle p.P. 751 kcal &bull; 74 KH &bull; 51g E &bull; 24g F'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 3,80 | 5,80 | 6,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Aktion</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Aktion</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,32,35,36,38,40,30a,30c</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="assets/images/dummyessen.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/dummyessen.d5e2fd89db36eb8f6d501aa2fa1f2fc7.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="assets/images/dummyessen.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Asia Noodles Soup Roasted Sesam Beef 
+                <sup style='font-size:11px'>(30,32,35,36,38,40,30a,30c)</sup>
+            </span>
+            <br>Kräftige Rinderbrühe mit Ramennudeln und Rindfleisch,  dazu ein Schuss geröstetes Sesamöl
+    
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 3,30 | 5,30 | 5,80
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/R.png?v=1' class='splIconMeal' alt='Asia Noodles Soup Roasted Sesam Beef Kräftige Rinderbrühe mit Ramennudeln und Rindfleisch,  dazu ein Schuss geröstetes Sesamöl'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/R.png?v=1' class='splIconMeal' alt='Asia Noodles Soup Roasted Sesam Beef Kräftige Rinderbrühe mit Ramennudeln und Rindfleisch,  dazu ein Schuss geröstetes Sesamöl'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 3,30 | 5,30 | 5,80
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Vegetarisch</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Vegetarisch</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,30a</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/c1es17167_img_3367.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/c1es17167_img_3367.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/c1es17167_img_3367.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Tortellini  "Italia" mit mediterraner Füllung 
+                <sup style='font-size:11px'>(30,30a)</sup>
+            </span>
+            <br>dazu Ratatouillesauce 
+            <sup style='font-size:11px'>(30,30a)</sup>  und Basilikum-Öl
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 2,60 | 4,60 | 5,10
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/VEG.png?v=1' class='splIconMeal' alt='Tortellini  \"Italia\" mit mediterraner Füllung dazu Ratatouillesauce  und Basilikum-Öl'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Tortellini  \"Italia\" mit mediterraner Füllung dazu Ratatouillesauce  und Basilikum-Öl'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/VEG.png?v=1' class='splIconMeal' alt='Tortellini  \"Italia\" mit mediterraner Füllung dazu Ratatouillesauce  und Basilikum-Öl'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Tortellini  \"Italia\" mit mediterraner Füllung dazu Ratatouillesauce  und Basilikum-Öl'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 2,60 | 4,60 | 5,10
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Pastaria</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Pastaria</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,30a,2,38</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/7c2e19417_9.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/7c2e19417_9.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/7c2e19417_9.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Pasta 
+                <sup style='font-size:11px'>(30,30a)</sup>
+            </span>
+            <br>mit Sauce Bolognese 
+            <sup style='font-size:11px'>(2,38)</sup>
+            <br>Fleisch "Geprüfte Qualität - HESSEN"
+    
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 1,80 | 3,80 | 4,30
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/GQH.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/R.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/GQH.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/R.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Pasta mit Sauce Bolognese  Fleisch \"Geprüfte Qualität - HESSEN\"'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 1,80 | 3,80 | 4,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class="splMeal"></div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,30a,36</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/351m4nsr7_img_3707_2.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/351m4nsr7_img_3707_2.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/351m4nsr7_img_3707_2.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Vollkornpasta 
+                <sup style='font-size:11px'>(30,30a)</sup>
+            </span>
+            <br>mit Kürbis-Sahne-Sauce 
+            <sup style='font-size:11px'>(30,36,30a)</sup>
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 1,80 | 3,80 | 4,30
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/V.png?v=1' class='splIconMeal' alt='Vollkornpasta mit Kürbis-Sahne-Sauce'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/V.png?v=1' class='splIconMeal' alt='Vollkornpasta mit Kürbis-Sahne-Sauce'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 1,80 | 3,80 | 4,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class="splMeal"></div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,30a,36</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/1c87251re_3.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/1c87251re_3.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/1c87251re_3.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Pasta 
+                <sup style='font-size:11px'>(30,30a)</sup>
+            </span>
+            <br>mit Käse-Sahne-Sauce 
+            <sup style='font-size:11px'>(30,36,30a)</sup>
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 1,80 | 3,80 | 4,30
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/V.png?v=1' class='splIconMeal' alt='Pasta mit Käse-Sahne-Sauce'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Pasta mit Käse-Sahne-Sauce'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/V.png?v=1' class='splIconMeal' alt='Pasta mit Käse-Sahne-Sauce'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Pasta mit Käse-Sahne-Sauce'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 1,80 | 3,80 | 4,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Suppen-/Eintopfstation</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Suppen-/Eintopfstation</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">30,38,30a</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/1nc11_suppenstation_002.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/1nc11_suppenstation_002.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/1nc11_suppenstation_002.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Klare Rinderbrühe mit Nudeln 
+                <sup style='font-size:11px'>(30,38,30a)</sup>
+            </span>
+            <br>in der Schale oder im Teller - ab 0,70&nbsp;Euro
+    
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        &nbsp;
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/R.png?v=1' class='splIconMeal' alt='Klare Rinderbrühe mit Nudeln in der Schale oder im Teller - ab 0,70 €'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Klare Rinderbrühe mit Nudeln in der Schale oder im Teller - ab 0,70 €'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/R.png?v=1' class='splIconMeal' alt='Klare Rinderbrühe mit Nudeln in der Schale oder im Teller - ab 0,70 €'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Klare Rinderbrühe mit Nudeln in der Schale oder im Teller - ab 0,70 €'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        &nbsp;
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class="splMeal"></div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste"></span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/1nc11_suppenstation_002.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/1nc11_suppenstation_002.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/1nc11_suppenstation_002.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Herzhafte Zwiebelsuppe</span>
+            <br>in der Schale oder im Teller - ab 0,70&nbsp;Euro
+    
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        &nbsp;
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/VEG.png?v=1' class='splIconMeal' alt='Herzhafte Zwiebelsuppe in der Schale oder im Teller - ab 0,70 €'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Herzhafte Zwiebelsuppe in der Schale oder im Teller - ab 0,70 €'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/VEG.png?v=1' class='splIconMeal' alt='Herzhafte Zwiebelsuppe in der Schale oder im Teller - ab 0,70 €'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Herzhafte Zwiebelsuppe in der Schale oder im Teller - ab 0,70 €'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        &nbsp;
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Beilagen</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Beilagen</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">3,5,41</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/9m1ec1c1c_beilagen.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/9m1ec1c1c_beilagen.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/9m1ec1c1c_beilagen.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Beilagenauswahl</span>
+            <br>Orientalisches Gemüse 
+            <sup style='font-size:11px'>(3)</sup>  | Schwarzwurzeln  | Chinesisches Kohlcurry  | Reis  | Chilikartoffeln
+            <sup style='font-size:11px'>(3,5,41)</sup>  | Vegane Tomatensauce  | Gemüsesauce mit Kokos
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        &nbsp;
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/VEG.png?v=1' class='splIconMeal' alt='Beilagenauswahl  Orientalisches Gemüse  Schwarzwurzeln  Chinesisches Kohlcurry  Reis  Chilikartoffeln  Vegane Tomatensauce  Gemüsesauce mit Kokos'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Beilagenauswahl  Orientalisches Gemüse  Schwarzwurzeln  Chinesisches Kohlcurry  Reis  Chilikartoffeln  Vegane Tomatensauce  Gemüsesauce mit Kokos'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Beilagenauswahl  Orientalisches Gemüse  Schwarzwurzeln  Chinesisches Kohlcurry  Reis  Chilikartoffeln  Vegane Tomatensauce  Gemüsesauce mit Kokos'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/VEG.png?v=1' class='splIconMeal' alt='Beilagenauswahl  Orientalisches Gemüse  Schwarzwurzeln  Chinesisches Kohlcurry  Reis  Chilikartoffeln  Vegane Tomatensauce  Gemüsesauce mit Kokos'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Beilagenauswahl  Orientalisches Gemüse  Schwarzwurzeln  Chinesisches Kohlcurry  Reis  Chilikartoffeln  Vegane Tomatensauce  Gemüsesauce mit Kokos'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/EIG.png?v=1' class='splIconMeal' alt='Beilagenauswahl  Orientalisches Gemüse  Schwarzwurzeln  Chinesisches Kohlcurry  Reis  Chilikartoffeln  Vegane Tomatensauce  Gemüsesauce mit Kokos'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        &nbsp;
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class="splMeal"></div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">34,36,37,37a</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/75m87r281_img_4389.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/75m87r281_img_4389.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/75m87r281_img_4389.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Mousse mit gebrannten Mandeln und Zimt 
+                <sup style='font-size:11px'>(34,36,37,37a)</sup>
+            </span>
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 1,30
+        
+            <div></div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        
+    </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 1,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-xl-0 splGroupWrapper">
+    <div class="row mb-1">
+        <div class="d-none d-sm-none col-md-6 d-md-block pr-0">
+            <div class="splGroup pl-3 py-2">Spezialbeilage</div>
+        </div>
+        <div class="d-none d-sm-none col-md-6 d-md-block pl-0 text-right">
+            <div class="splGroup pr-3 py-2">Preise Studierende | Bedienstete | G&auml;ste</div>
+        </div>
+        <div class="d-sm-block col-sm-12 d-md-none">
+            <div class="splGroup">
+                <div class="pl-2">Spezialbeilage</div>
+                <div class="pl-2" style="font-size:14px">Preise Studierende | Bedienstete | G&auml;ste</div>
+            </div>
+        </div>
+    </div>
+    <div class="row pr-3 rowMeal">
+        <!-- Kommaliste der Kennzeichnungen für Allergenfilter -->
+        <span class="hide kennzKommaliste">36</span>
+        <!-- Foto mobile -->
+        <div class="d-sm-none d-block col-12 mt-10 mt-sm-0">
+            <img class="img-fluid" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/7rn12sm1c_img_4029.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- Foto tablet, desktop -->
+        <div class="d-none d-sm-block mt-10 col-sm-2 mt-sm-0">
+            <img class="splfoto img-fluid" src="/assets/components/phpthumbof/cache/7rn12sm1c_img_4029.01022f164679dde7289ab9253736b941.jpg" alt="Abbildung des Essens">
+            <img class="hide" src="https://www.maxmanager.de/daten-extern/sw-giessen/html/fotos/big/7rn12sm1c_img_4029.jpg" alt="Abbildung des Essens">
+    
+        </div>
+        <!-- mittlere Spalte Essenstext -->
+        <div class="col-12 mb-10 order-12 col-sm-6 order-sm-1 mb-sm-0">
+            <span style="font-weight:bold">Kartoffelgratin  
+                <sup style='font-size:11px'>(36)</sup>
+            </span>
+            <br>mit Kartoffeln aus ökologischem Anbau DE-ÖKO-007
+    
+        </div>
+        <!-- Preis / Icons tablet, desktop -->
+        <div class="d-none col-sm-4 order-sm-12 d-sm-block text-right">
+        Euro 0,70 | 1,10 | 1,30
+        
+            <div>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/V.png?v=1' class='splIconMeal' alt='Kartoffelgratin  mit Kartoffeln aus ökologischem Anbau DE-ÖKO-007'>
+                <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Kartoffelgratin  mit Kartoffeln aus ökologischem Anbau DE-ÖKO-007'>
+            </div>
+        </div>
+        <!-- Preis / Icons mobile -->
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/V.png?v=1' class='splIconMeal' alt='Kartoffelgratin  mit Kartoffeln aus ökologischem Anbau DE-ÖKO-007'>
+            <img src='https://www.maxmanager.de/daten-extern/sw-giessen/html/icons/KNO.png?v=1' class='splIconMeal' alt='Kartoffelgratin  mit Kartoffeln aus ökologischem Anbau DE-ÖKO-007'>
+    
+        </div>
+        <div class="d-block col-12 order-1 d-sm-none pt-2">
+        Euro 0,70 | 1,10 | 1,30
+    </div>
+    </div>
+    <div class="row" style="height:6px">
+        <div class="col-12">
+            <div class=""></div>
+        </div>
+    </div>
+</div>
